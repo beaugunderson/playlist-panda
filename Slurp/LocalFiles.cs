@@ -1,22 +1,27 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace PlaylistPanda.Slurp
 {
-    class LocalFiles
+    public class LocalFiles
     {
         public Collection<string> Locations { get; set; }
-        public Collection<Song> Songs { get; set; }
+
+        [XmlArray("Songs")]
+        [XmlArrayItem("Song", typeof(Song))]
+        public ArrayList Songs { get; set; }
 
         private static readonly string[] _extensions = new[] { ".mp3", ".wma", ".mp4", ".wav", ".ra", ".flac", ".mpc", ".ogg", ".mp2" };
 
         public LocalFiles()
         {
             Locations = new Collection<string>();
-            Songs = new Collection<Song>();
+            Songs = new ArrayList();
         }
 
         public void Slurp()

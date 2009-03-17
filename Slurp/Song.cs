@@ -8,6 +8,10 @@ namespace PlaylistPanda.Slurp
         public string Album { get; set; }
         public string Title { get; set; }
 
+        public Song()
+        {
+        }
+
         public Song(string path, string artist, string album, string title)
         {
             Path = path;
