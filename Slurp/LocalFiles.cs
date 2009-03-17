@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Threading;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace PlaylistPanda.Slurp
 {
     public class LocalFiles
     {
-        public Collection<string> Locations { get; set; }
+        [XmlArrayItem("Location", typeof(string))]
+        public StringCollection Locations { get; set; }
 
-        [XmlArray("Songs")]
         [XmlArrayItem("Song", typeof(Song))]
         public ArrayList Songs { get; set; }
 
@@ -20,7 +21,7 @@ namespace PlaylistPanda.Slurp
 
         public LocalFiles()
         {
-            Locations = new Collection<string>();
+            Locations = new StringCollection();
             Songs = new ArrayList();
         }
 
@@ -113,11 +114,11 @@ namespace PlaylistPanda.Slurp
 
                 Songs.Add(new Song(file.FullName, tagFile.Tag.JoinedPerformers, tagFile.Tag.Album, tagFile.Tag.Title));
             }
-            catch (TagLib.CorruptFileException exception)
+            catch (TagLib.CorruptFileException)
             {
                 Console.WriteLine("Unable to read file (CorruptFile): " + file.FullName);
             }
-            catch (TagLib.UnsupportedFormatException exception)
+            catch (TagLib.UnsupportedFormatException)
             {
                 Console.WriteLine("Unable to read file (UnsupportedFormat): " + file.FullName);
             }
