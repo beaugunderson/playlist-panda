@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Windows.Forms;
+using PlaylistPanda.Slurp;
 
 namespace PlaylistPanda
 {
@@ -14,6 +11,28 @@ namespace PlaylistPanda
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            LocalFiles localFiles = new LocalFiles();
+            localFiles.Locations.Add(@"D:\Music\MP3");
+            localFiles.Slurp();
+
+            stopwatch.Stop();
+
+            Console.WriteLine("Total time: {0}", stopwatch.Elapsed);
         }
     }
 }
