@@ -1,0 +1,2685 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>/home/amr/Dropbox/projects/lastfm-sharp/trunk/src/lastfm-sharp/../../bin/Release/lastfm-sharp</name>
+    </assembly>
+    <members>
+        <member name="T:Lastfm.Lib">
+            <summary>
+            Shared properties.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Lib.Proxy">
+            <summary>
+            A <see cref="T:System.Net.IWebProxy" />.
+            </summary>
+            <value>
+            A web proxy to be used in making all the calls to Last.fm.
+            </value>
+            <remarks>
+            To enable using a proxy server, set this value to a <see cref="T:System.Net.IWebProxy" />, like <see cref="T:System.Net.WebProxy" />.
+            To disable using a proxy server, set it to null.
+            Default value is null.
+            </remarks>
+        </member>
+        <member name="P:Lastfm.Lib.Version">
+            <summary>
+            Returns the version of this assembly.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Utilities">
+            <summary>
+            General utility functions
+            </summary>
+        </member>
+        <member name="M:Lastfm.Utilities.md5(System.String)">
+            <summary>
+            Returns the md5 hash of a string.
+            </summary>
+            <param name="text">
+            A <see cref="T:System.String" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.Album">
+            <summary>
+            A Last.fm album.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Album.#ctor(System.String,System.String,Lastfm.Services.Session)">
+            <summary>
+            Createa an album object.
+            </summary>
+            <param name="artistName">
+            A <see cref="T:System.String" /></param>
+            <param name="title">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.#ctor(Lastfm.Services.Artist,System.String,Lastfm.Services.Session)">
+            <summary>
+            Create an album.
+            </summary>
+            <param name="artist">
+            A <see cref="T:Lastfm.Services.Artist" /></param>
+            <param name="title">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="P:Lastfm.Services.Album.Title">
+            <summary>
+            The album title.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Album.Name">
+            <summary>
+            The album title/name.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Album.Artist">
+            <summary>
+            The album's artist.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Album.Wiki">
+            <summary>
+            The album's wiki on Last.fm.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Album.URL">
+            <value>
+            The Last.fm page of this object.
+            </value>
+        </member>
+        <member name="M:Lastfm.Services.Album.ToString">
+            <summary>
+            String representation of the object.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetMBID">
+            <summary>
+            Returns the album's MusicBrainz ID if available.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetID">
+            <summary>
+            Returns the album ID on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetReleaseDate">
+            <summary>
+            Returns the album's release date.
+            </summary>
+            <returns>
+            A <see cref="T:System.DateTime" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetImageURL(Lastfm.Services.AlbumImageSize)">
+            <summary>
+            Returns the url to the album cover if available.
+            </summary>
+            <param name="size">
+            A <see cref="T:Lastfm.Services.AlbumImageSize" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetImageURL">
+            <summary>
+            Returns the url to the album cover if available.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetListenerCount">
+            <summary>
+            Returns the number of listeners on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetPlaycount">
+            <summary>
+            Returns the play count on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetTracks">
+            <summary>
+            Returns an array of the tracks on this album.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetTopTags">
+            <summary>
+            Returns the top tags for this album on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetTopTags(System.Int32)">
+            <summary>
+            Returns the top tags for this album on Last.fm.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.Equals(Lastfm.Services.Album)">
+            <summary>
+            Check to see if this object equals another.
+            </summary>
+            <param name="album">
+            A <see cref="T:Lastfm.Services.Album" /></param>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.Search(System.String,Lastfm.Services.Session)">
+            <summary>
+            Search for an album on Last.fm.
+            </summary>
+            <param name="albumName">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.AlbumSearch" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.AddTags(Lastfm.Services.Tag[])">
+            <summary>
+            Add tags to this album.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.AddTags(System.String[])">
+            <summary>
+            Add tags to this album.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.AddTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Add tags to this album.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetTags">
+            <summary>
+            Returns the tags set by the authenticated user to this album.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Tag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.RemoveTags(Lastfm.Services.Tag[])">
+            <summary>
+            Remove from your tags on this album.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.RemoveTags(System.String[])">
+            <summary>
+            Remove from your tags on this album.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.RemoveTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Remove from the authenticated user's tags on this album.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.SetTags(System.String[])">
+            <summary>
+            Set the authenticated user's tags to only those tags.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.SetTags(Lastfm.Services.Tag[])">
+            <summary>
+            Set the authenticated user's tags to only those tags.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.SetTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Set the authenticated user's tags to only those tags.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Album.ClearTags">
+            <summary>
+            Clears all the tags that the authenticated user has set to this album.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetByMBID(System.String,Lastfm.Services.Session)">
+            <summary>
+            Returns an album by it's MusicBrainz id.
+            </summary>
+            <param name="mbid">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Album" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Album.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.AlbumImageSize">
+            <summary>
+            Size of the album cover art.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.AlbumSearch">
+            <summary>
+            Encapsulates the album searching functions.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.AlbumSearch.GetPage(System.Int32)">
+            <summary>
+            Returns a page of results.
+            </summary>
+            <param name="page">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Album" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.AlbumWiki">
+            <summary>
+            A Last.fm's wiki page for an album.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.AlbumWiki.Album">
+            <summary>
+            The concerned album.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.AlbumWiki.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.AlbumWiki.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.Artist">
+            <summary>
+            An artist on Last.fm
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Artist.Name">
+            <summary>
+            The name of the artist.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Artist.Bio">
+            <summary>
+            The current wiki version.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Artist.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Artist.ToString">
+            <summary>
+            String representation of the object.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetSimilar(System.Int32)">
+            <summary>
+            Returns the similar artists to this artist ordered by similarity from the
+            most similar to the least similar.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetSimilar">
+            <summary>
+            Returns the similar artists to this artist ordered by similarity from the
+            most similar to the least similar.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetListenerCount">
+            <summary>
+            Returns the total number of listeners on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetPlaycount">
+            <summary>
+            Returns the total number of playcounts on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetImageURL(Lastfm.Services.ImageSize)">
+            <summary>
+            Returns the url of the artist's image on Last.fm.
+            </summary>
+            <param name="size">
+            A <see cref="T:Lastfm.Services.ImageSize" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetImageURL">
+            <summary>
+            Returns the url of the artist's image on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetTopTracks">
+            <summary>
+            Returns the top most popular tracks by this artist.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTrack" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetEvents">
+            <summary>
+            Returns a list of upcoming events for this artist.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Event" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetTopAlbums">
+            <summary>
+            Returns the most popular albums by this artist.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopAlbum" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetTopFans">
+            <summary>
+            Returns the the top fans for this artist.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopFan" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.Equals(Lastfm.Services.Artist)">
+            <summary>
+            Check to see if this object equals another.
+            </summary>
+            <param name="artist">
+            A <see cref="T:Lastfm.Services.Artist" /></param>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.Share(Lastfm.Services.Recipients,System.String)">
+            <summary>
+            Share this artist with others.
+            </summary>
+            <param name="recipients">
+            A <see cref="T:Lastfm.Services.Recipients" /></param>
+            <param name="message">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.Share(Lastfm.Services.Recipients)">
+            <summary>
+            Share this artist with others.
+            </summary>
+            <param name="recipients">
+            A <see cref="T:Lastfm.Services.Recipients" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.Search(System.String,Lastfm.Services.Session)">
+            <summary>
+            Search for artists on Last.fm.
+            </summary>
+            <param name="artistName">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.ArtistSearch" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.AddTags(Lastfm.Services.Tag[])">
+            <summary>
+            Add one or more tags to this artist.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.AddTags(System.String[])">
+            <summary>
+            Add one or more tags to this artist.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.AddTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Add one or more tags to this artist.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetTags">
+            <summary>
+            Returns the tags set by the authenticated user to this artist.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Tag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetTopTags">
+            <summary>
+            Returns the top tags of this artist on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetTopTags(System.Int32)">
+            <summary>
+            Returns the top tags of this artist on Last.fm.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.RemoveTags(Lastfm.Services.Tag[])">
+            <summary>
+            Removes from the tags that the authenticated user has set to this artist.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.RemoveTags(System.String[])">
+            <summary>
+            Removes from the tags that the authenticated user has set to this artist.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.RemoveTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Removes from the tags that the authenticated user has set to this artist.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.SetTags(System.String[])">
+            <summary>
+            Sets the tags applied by the authenticated user to this artist to
+            only those tags. Removing and adding tags as neccessary.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.SetTags(Lastfm.Services.Tag[])">
+            <summary>
+            Sets the tags applied by the authenticated user to this artist to
+            only those tags. Removing and adding tags as neccessary.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.SetTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Sets the tags applied by the authenticated user to this artist to
+            only those tags. Removing and adding tags as neccessary.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Artist.ClearTags">
+            <summary>
+            Clears the tags that the authenticated user has set to this artist.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetByMBID(System.String,Lastfm.Services.Session)">
+            <summary>
+            Returns an artist by their MusicBrainz artist id.
+            </summary>
+            <param name="mbid">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetMBID">
+            <summary>
+            Returns the artist's MusicBrainz id.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Artist.IsStreamable">
+            <summary>
+            Returns true if the artist's music is available for streaming.
+            </summary>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.ArtistBio">
+            <summary>
+            An artist's bio on Last.fm.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.ArtistBio.Artist">
+            <value>
+            The concerned artist.
+            </value>
+        </member>
+        <member name="P:Lastfm.Services.ArtistBio.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.ArtistBio.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.ArtistSearch">
+            <summary>
+            Encapsulates the artist searching functions.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.ArtistSearch.GetPage(System.Int32)">
+            <summary>
+            Returns a page of results.
+            </summary>
+            <param name="page">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.AuthenticatedUser">
+            <summary>
+            The authenticated user.
+            </summary>
+            <remarks>
+            To create an an object of this class, you'd have to call
+            <see cref="M:Lastfm.Services.AuthenticatedUser.GetUser(Lastfm.Services.Session)" />.
+            </remarks>
+        </member>
+        <member name="P:Lastfm.Services.AuthenticatedUser.RecommendedEvents">
+            <summary>
+            Returns the recommended events by Last.fm for this user.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.AuthenticatedUser.RecommendedArtists">
+            <summary>
+            The recommended artists for this user.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.AuthenticatedUser.GetUser(Lastfm.Services.Session)">
+            <summary>
+            Returns the authenticated user of this session.
+            </summary>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.AuthenticatedUser" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.AuthenticatedUser.GetImageURL">
+            <summary>
+            Returns the url to the authenticated user's avatar.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.AuthenticatedUser.GetLanguageCode">
+            <summary>
+            Returns the ISO 639 alpha-2 language code of this user.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.AuthenticatedUser.GetCountry">
+            <summary>
+            Returns the user's country.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Country" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.AuthenticatedUser.GetAge">
+            <summary>
+            Returns the authenticated user's age.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.AuthenticatedUser.GetGender">
+            <summary>
+            Returns the authenticated user's gender.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Gender" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.AuthenticatedUser.IsSubscriber">
+            <summary>
+            Returns true if the user is a subscriber, false if not.
+            </summary>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.AuthenticatedUser.GetPlaycount">
+            <summary>
+            Returns the user's playcount.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.AuthenticationRequiredException">
+            <summary>
+            This exception is thrown whenever a method is called thar required an authenticated
+            <see cref="T:Lastfm.Services.Session" /> object and the given was not.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Base">
+            <summary>
+            A base class for most of the objects.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Country">
+            <summary>
+            A country on Last.fm.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Country.#ctor(System.String,Lastfm.Services.Session)">
+            <summary>
+            A country by its name or its ISO 3166-1 alpha-2 code.
+            </summary>
+            <param name="name">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="P:Lastfm.Services.Country.Name">
+            <value>
+            The country's name.
+            </value>
+        </member>
+        <member name="P:Lastfm.Services.Country.URL">
+            <value>
+            The country's page url on Last.fm.
+            </value>
+        </member>
+        <member name="M:Lastfm.Services.Country.ToString">
+            <summary>
+            String representation of the object.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Country.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the country's page url on Last.fm.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.Event">
+            <summary>
+            A Last.fm event.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Event.ID">
+            <summary>
+            The event ID.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Event.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Event.Venue">
+            <value>
+            The venue where the event is being held.
+            </value>
+        </member>
+        <member name="M:Lastfm.Services.Event.SetAttendance(Lastfm.Services.EventAttendance)">
+            <summary>
+            Set the authenticated user's status for this event.
+            </summary>
+            <param name="attendance">
+            A <see cref="T:Lastfm.Services.EventAttendance" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetTitle">
+            <summary>
+            Returns the title of the event.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetArtists">
+            <summary>
+            Returns the participating artists in this event.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetHeadliner">
+            <summary>
+            Returns the headliner artist.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetStartDate">
+            <summary>
+            Returns the start time of the event.
+            </summary>
+            <returns>
+            A <see cref="T:System.DateTime" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetDescription">
+            <summary>
+            Returns the description of the evnet.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetImageURL(Lastfm.Services.ImageSize)">
+            <summary>
+            Returns the url to the image of this event.
+            </summary>
+            <param name="size">
+            A <see cref="T:Lastfm.Services.ImageSize" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetImageURL">
+            <summary>
+            Returns the url to the image of this event.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetAttendantCount">
+            <summary>
+            Returns the number of attendees.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetReviewCount">
+            <summary>
+            Returns the number of reviews for this event.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetFlickrTag">
+            <summary>
+            Returns the flickr tag.
+            </summary>
+            <remarks>
+            You can tag your image on flickr with this tag and they would be imported into
+            the last.fm page for this event.
+            </remarks>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.Equals(Lastfm.Services.Event)">
+            <summary>
+            Check to see if this object equals another.
+            </summary>
+            <param name="eventObject">
+            A <see cref="T:Lastfm.Services.Event" /></param>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Event.Share(Lastfm.Services.Recipients,System.String)">
+            <summary>
+            Share this event with others.
+            </summary>
+            <param name="recipients">
+            A <see cref="T:Lastfm.Services.Recipients" /></param>
+            <param name="message">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Event.Share(Lastfm.Services.Recipients)">
+            <summary>
+            Share this event with others.
+            </summary>
+            <param name="recipients">
+            A <see cref="T:Lastfm.Services.Recipients" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Event.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.EventAttendance">
+            <summary>
+            The status of attending an event.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Gender">
+            <summary>
+            A gender of a person.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Global">
+            <summary>
+            Global functions that don't fit anywhere else.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Global.GetTopTags">
+            <summary>
+            Returns the most popular tags on Last.fm.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.Group">
+            <summary>
+            A Last.fm Group.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Group.Name">
+            <summary>
+            Name of the group.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Group.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Group.Members">
+            <value>
+            The members in this group.
+            </value>
+        </member>
+        <member name="M:Lastfm.Services.Group.ToString">
+            <summary>
+            String representation of the object.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Group.GetWeeklyTrackChart">
+            <summary>
+            Returns the latest weekly track chart for this group.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyTrackChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Group.GetWeeklyTrackChart(Lastfm.Services.WeeklyChartTimeSpan)">
+            <summary>
+            Returns the weekly track chart for this group in the given <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" />.
+            </summary>
+            <param name="span">
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyTrackChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Group.GetWeeklyArtistChart">
+            <summary>
+            Returns the latest weekly artist chart for this group.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyArtistChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Group.GetWeeklyArtistChart(Lastfm.Services.WeeklyChartTimeSpan)">
+            <summary>
+            Returns the weekly artist chart for this group in the given
+            <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" />.
+            </summary>
+            <param name="span">
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyArtistChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Group.GetWeeklyAlbumChart">
+            <summary>
+            Returns the latest weekly album chart for this group.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyAlbumChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Group.GetWeeklyAlbumChart(Lastfm.Services.WeeklyChartTimeSpan)">
+            <summary>
+            Returns the weekly album chart for this group in the given <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" />.
+            </summary>
+            <param name="span">
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyAlbumChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Group.GetWeeklyChartTimeSpans">
+            <summary>
+            Returns the available timespans for charts available for this group.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Group.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.GroupMembers">
+            <summary>
+            The members of a Last.fm group.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.GroupMembers.Group">
+            <value>
+            The concerned group.
+            </value>
+        </member>
+        <member name="T:Lastfm.Services.IHasImage">
+            <summary>
+            Objects that implement this has an image url available.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.IHasURL">
+            <summary>
+            Objects that implement this have url pages at Last.fm
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.IHasURL.URL">
+            <value>
+            The Last.fm page of this object.
+            </value>
+        </member>
+        <member name="M:Lastfm.Services.IHasURL.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.IHasWeeklyAlbumCharts">
+            <summary>
+            Objects that implement this have weekly album charts.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.IHasWeeklyArtistCharts">
+            <summary>
+            Objects that implement this have weekly artist charts.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.IHasWeeklyTrackCharts">
+            <summary>
+            Objects that implement this have weekly track charts.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.IShareable">
+            <summary>
+            Objects that implement this can be shared with others.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.ITaggable">
+            <summary>
+            Objects that implement this can be tagged on Last.fm.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.ImageSize">
+            <summary>
+            An image size.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.InvalidPageException">
+            <summary>
+            Gets thrown when an invalid page value is provided.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Library">
+            <summary>
+            A user's library.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Library.User">
+            <summary>
+            The user who owns the library.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Library.Albums">
+            <summary>
+            The albums in the library.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Library.Tracks">
+            <summary>
+            The tracks in the library.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Library.Artists">
+            <summary>
+            The artists in the library.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Library.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Library.ToString">
+            <summary>
+            String representation of the object.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Library.AddAlbum(Lastfm.Services.Album)">
+            <summary>
+            Add an album to the library.
+            </summary>
+            <param name="album">
+            A <see cref="T:Lastfm.Services.Album" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Library.AddArtist(Lastfm.Services.Artist)">
+            <summary>
+            Add an artist to the library.
+            </summary>
+            <param name="artist">
+            A <see cref="T:Lastfm.Services.Artist" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Library.AddTrack(Lastfm.Services.Track)">
+            <summary>
+            Add a track to the library.
+            </summary>
+            <param name="track">
+            A <see cref="T:Lastfm.Services.Track" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Library.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.LibraryAlbum">
+            <summary>
+            An <see cref="T:Lastfm.Services.Album" /> in a <see cref="T:Lastfm.Services.Library" />.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.LibraryAlbum.Album">
+            <summary>
+            The album.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.LibraryAlbums">
+            <summary>
+            The albums in a <see cref="T:Lastfm.Services.Library" />.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.LibraryAlbums.Library">
+            <summary>
+            The library.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.LibraryArtist">
+            <summary>
+            An <see cref="T:Lastfm.Services.Artist" /> in a <see cref="T:Lastfm.Services.Library" />.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.LibraryArtist.Artist">
+            <summary>
+            The artist.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.LibraryArtists">
+            <summary>
+            The artists in a <see cref="T:Lastfm.Services.Library" />.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.LibraryArtists.Library">
+            <summary>
+            The library.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.LibraryItem`1">
+            <summary>
+            An item in a user's library.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.LibraryItem`1.Playcount">
+            <value>
+            How many times the user have played it.
+            </value>
+        </member>
+        <member name="P:Lastfm.Services.LibraryItem`1.Tagcount">
+            <value>
+            How many tags have the user set to it.
+            </value>
+        </member>
+        <member name="T:Lastfm.Services.LibraryTrack">
+            <summary>
+            A <see cref="T:Lastfm.Services.Track" /> in a <see cref="T:Lastfm.Services.Library" />.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.LibraryTrack.Track">
+            <summary>
+            The track.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.LibraryTracks">
+            <summary>
+            The tracks in a <see cref="T:Lastfm.Services.Library" />.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.LibraryTracks.Library">
+            <summary>
+            The library.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Pages`1">
+            <summary>
+            An abstract class inherited by data objects that come in pages.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Period">
+            <summary>
+            A period of time value.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Playlist">
+            <summary>
+            A Last.fm user playlist.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Playlist.ID">
+            <summary>
+            The playlist ID. A Unique identifier.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Playlist.User">
+            <summary>
+            The user who owns the playlist.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Playlist.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetTracks">
+            <summary>
+            Returns the tracks in this playlist.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.AddTrack(Lastfm.Services.Track)">
+            <summary>
+            Adds a track to this playlist.
+            </summary>
+            <param name="track">
+            A <see cref="T:Lastfm.Services.Track" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetTitle">
+            <summary>
+            Returns the title of this playlist.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetDescription">
+            <summary>
+            Returns the description of this playlist.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetCreationDate">
+            <summary>
+            Returns the date of creation of this playlist.
+            </summary>
+            <returns>
+            A <see cref="T:System.DateTime" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetSize">
+            <summary>
+            Returns the number of tracks on this playlist.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetDuration">
+            <summary>
+            Returns the total duration of the playlist.
+            </summary>
+            <returns>
+            A <see cref="T:System.TimeSpan" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetImageURL(Lastfm.Services.ImageSize)">
+            <summary>
+            Returns the url to the image of the playlist.
+            </summary>
+            <param name="size">
+            A <see cref="T:Lastfm.Services.ImageSize" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetImageURL">
+            <summary>
+            Returns the url to the image of the playlist.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.CreateNew(System.String,System.String,Lastfm.Services.Session)">
+            <summary>
+            Creates a new playlist for the authenticated user.
+            </summary>
+            <param name="title">
+            A <see cref="T:System.String" /></param>
+            <param name="description">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Playlist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Playlist.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.Recipients">
+            <summary>
+            A collection of recipients.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Recipients.Add(System.String)">
+            <summary>
+            Add a Last.fm username.
+            </summary>
+            <param name="username">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Recipients.Add(Lastfm.Services.User)">
+            <summary>
+            Add a <see cref="T:Lastfm.Services.User" />.
+            </summary>
+            <param name="user">
+            A <see cref="T:Lastfm.Services.User" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Recipients.AddEmail(System.String)">
+            <summary>
+            Add an email.
+            </summary>
+            <param name="email">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.RecommendedArtists.GetPage(System.Int32)">
+            <summary>
+            Returns a page of artists.
+            </summary>
+            <param name="page">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.Search`1">
+            <summary>
+            An abstract searching provider.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Search`1.GetResultCount">
+            <summary>
+            Returne the total number of results.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Search`1.GetItemsPerPage">
+            <summary>
+            Returns the number of items per page.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Search`1.GetPage(System.Int32)">
+            <summary>
+            Returns a page of reuslts.
+            </summary>
+            <param name="page">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="!:T" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Search`1.SpecifyItemsPerPage(System.Int32)">
+            <summary>
+            Specify how many items are returned in a page.
+            </summary>
+            <param name="itemsPerPage">
+            A <see cref="T:System.Int32" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Search`1.GetFirstMatch">
+            <summary>
+            I'm Feeling Lucky.
+            </summary>
+            <returns>
+            A <see cref="!:T" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.ServiceException">
+            <summary>
+            A Last.fm web service exception
+            </summary>
+        </member>
+        <!--FIXME: Invalid documentation markup was found for member P:Lastfm.Services.ServiceException.Type-->
+        <member name="P:Lastfm.Services.ServiceException.Description">
+            <summary>
+            The description of the exception.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Session">
+            <summary>
+            Represents your identity tokens provided by Last.fm.</summary>
+            <remarks>
+            A session with only API Key and API Secret is not authenticated, and it wouldn't let you
+            perform write operations on Last.fm. In order to have it authenticated you could do the following:
+            <code>
+            using System;
+            using Lastfm.Services;
+            string key = "b25b959554ed76058ac220b7b2e0a026";
+            string secret = "361505f8eeaf61426ef95a4317482251";
+            Session session = new Session(key, secret);
+            // one way is to ask the user for his username and password.
+            string username = Console.ReadLine("Please enter your username: ");
+            string md5Password = Utilities.md5(Console.ReadLine("Please enter your password: "));
+            // then authenticate.
+            session.Authenticate(username, md5Password);
+            // another way is to let the user authenticate from the Last.fm website.
+            string url = session.GetAuthenticationURL();
+            Console.WriteLine("Please open the following url and follow the procedures, then press Enter: " + url);
+            // wait for it.
+            Console.ReadLine();
+            // now that he's done, retreive the session key.
+            session.AuthenticateViaWeb();
+            </code>
+            Please note that a Session object is inhertied among objects. For example
+            if you create an <see cref="!:Lastfm.Artist" /> object with an authenticated session and
+            used the artists returned by <see cref="M:Lastfm.Services.Artist.GetSimilar" /> they would also have an
+            unauthenticated session.
+            </remarks>
+        </member>
+        <member name="P:Lastfm.Services.Session.APIKey">
+            <summary>API Key</summary>
+            <value>
+            The Last.fm API Key.
+            </value>
+            <remarks>
+            To acquire one, please see http://www.last.fm/api/account
+            </remarks>
+        </member>
+        <member name="P:Lastfm.Services.Session.APISecret">
+            <summary>API Secret</summary>
+            <value>
+            The Last.fm API Secret.
+            </value>
+            <remarks>
+            To acquire one, please see http://www.last.fm/api/account
+            </remarks>
+        </member>
+        <member name="P:Lastfm.Services.Session.SessionKey">
+            <summary>Session Key</summary>
+            <value>
+            The Session key which represents the user's permission to let you
+            perform "write" operations on his/her profile.
+            </value>
+            <remarks>
+            To set this value, you have to call either <see cref="M:Lastfm.Services.Session.Authenticate(System.String,System.String)" /> or
+            <see cref="M:Lastfm.Services.Session.GetWebAuthenticationURL" /> and let the user authenticate by theirselves then
+            call <see cref="M:Lastfm.Services.Session.AuthenticateViaWeb" /> to complete the process.
+            </remarks>
+        </member>
+        <member name="P:Lastfm.Services.Session.Authenticated">
+            <summary>
+            Returns true if the session is authenticated.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Session.Authenticate(System.String,System.String)">
+            <summary>
+            Authenticate this session using a username and a md5 hash of the password.
+            </summary>
+            <param name="username">
+            A <see cref="T:System.String" /></param>
+            <param name="md5Password">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Session.GetWebAuthenticationURL">
+            <summary>
+            Returns the url for web authentication.
+            </summary>
+            <remarks>
+                <see cref="M:Lastfm.Services.Session.AuthenticateViaWeb" /> should be called when the user is done.
+            </remarks>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Session.AuthenticateViaWeb">
+            <summary>
+            Complete the web authentication.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Session.Equals(Lastfm.Services.Session)">
+            <summary>
+            Check to see if this object equals another.
+            </summary>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.SiteLanguage">
+            <summary>
+            Languages available for the Last.fm website.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Tag.Name">
+            <summary>
+            The tag name.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Tag.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Tag.ToString">
+            <summary>
+            String representation of the object.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.GetSimilar">
+            <summary>
+            Returns similar tags.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Tag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.GetTopAlbums">
+            <summary>
+            Returns the top albums tagged with this tag.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopAlbum" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.GetTopArtists">
+            <summary>
+            Returns the top artists tagged with this tag.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopArtist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.GetTopTracks">
+            <summary>
+            Returns the top tracks tagged with this track.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTrack" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.Equals(Lastfm.Services.Tag)">
+            <summary>
+            Check to see if this object equals another.
+            </summary>
+            <param name="tag">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.Search(System.String,Lastfm.Services.Session)">
+            <summary>
+            Search for tags by name.
+            </summary>
+            <param name="name">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TagSearch" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.GetWeeklyChartTimeSpans">
+            <summary>
+            Returns the available weekly chart time spans (weeks) for this tag.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.GetWeeklyArtistChart">
+            <summary>
+            Returns the latest weekly artist chart.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyArtistChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.GetWeeklyArtistChart(Lastfm.Services.WeeklyChartTimeSpan)">
+            <summary>
+            Returns the weekly artist chart for a specified time span (week).
+            </summary>
+            <param name="span">
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyArtistChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tag.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.TagCollection">
+            <summary>
+            A collection of tags.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.TagCollection.Add(System.String)">
+            <summary>
+            Add a tag name.
+            </summary>
+            <param name="tag">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.TagCollection.Add(Lastfm.Services.Tag)">
+            <summary>
+            Add a tag.
+            </summary>
+            <param name="tag">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="T:Lastfm.Services.TagSearch">
+            <summary>
+            Encapsulates the tag searching functions.
+            </summary>
+            <remarks>
+            To create an object of this class use <see cref="!:Search.ForTags" />.
+            </remarks>
+        </member>
+        <member name="M:Lastfm.Services.TagSearch.GetPage(System.Int32)">
+            <summary>
+            Returns a page of results.
+            </summary>
+            <param name="page">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Tag" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.Tasteometer">
+            <summary>
+            Compare Last.fm users and others.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.#ctor(Lastfm.Services.User,Lastfm.Services.User,Lastfm.Services.Session)">
+            <summary>
+            Compare a user with another user.
+            </summary>
+            <param name="firstUser">
+            A <see cref="T:Lastfm.Services.User" /></param>
+            <param name="secondUser">
+            A <see cref="T:Lastfm.Services.User" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.#ctor(System.Collections.Generic.IEnumerable{Lastfm.Services.Artist},System.Collections.Generic.IEnumerable{Lastfm.Services.Artist},Lastfm.Services.Session)">
+            <summary>
+            Compare a list of artists with another list of artists.
+            </summary>
+            <param name="firstArtists">
+            A <see cref="!:IEnumerable`1" /></param>
+            <param name="secondArtists">
+            A <see cref="!:IEnumerable`1" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.#ctor(System.String,System.String,Lastfm.Services.Session)">
+            <summary>
+            Compare a myspace profile with another.
+            </summary>
+            <param name="firstMyspaceURL">
+            A <see cref="T:System.String" /></param>
+            <param name="secondMyspaceURL">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.#ctor(Lastfm.Services.User,System.Collections.Generic.IEnumerable{Lastfm.Services.Artist},Lastfm.Services.Session)">
+            <summary>
+            Compare a user with a list of artists.
+            </summary>
+            <param name="user">
+            A <see cref="T:Lastfm.Services.User" /></param>
+            <param name="artists">
+            A <see cref="!:IEnumerable`1" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.#ctor(Lastfm.Services.User,System.String,Lastfm.Services.Session)">
+            <summary>
+            Compare a user with a myspace profile.
+            </summary>
+            <param name="user">
+            A <see cref="T:Lastfm.Services.User" /></param>
+            <param name="myspaceURL">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.#ctor(System.Collections.Generic.IEnumerable{Lastfm.Services.Artist},System.String,Lastfm.Services.Session)">
+            <summary>
+            Compare a list of artists with a myspace profile.
+            </summary>
+            <param name="artists">
+            A <see cref="!:IEnumerable`1" /></param>
+            <param name="myspaceURL">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.GetScore">
+            <summary>
+            Returns the comparison percentage.
+            </summary>
+            <returns>
+            A <see cref="T:System.Single" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.GetSharedArtists">
+            <summary>
+            Returns the shared artits.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Tasteometer.GetSharedArtists(System.Int32)">
+            <summary>
+            Returns the shared artists.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Artist" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.TopAlbum">
+            <summary>
+            A top album in a list of top albums.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.TopArtist">
+            <summary>
+            A top artist in a list of top artists.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.TopFan">
+            <summary>
+            A top fan in a list of top fans.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.TopItem`1">
+            <summary>
+            A top item in a list of top items.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.TopItem`1.Item">
+            <summary>
+            The concerned item.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.TopItem`1.Weight">
+            <summary>
+            The weight of this item in the list. A playcount, tagcount or a percentage.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.TopTag">
+            <summary>
+            A top tag in a list of top tags.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.TopTrack">
+            <summary>
+            A top track in a list of top tracks.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Track">
+            <summary>
+            A Last.fm track.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Track.Title">
+            <summary>
+            The track title.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Track.Artist">
+            <summary>
+            The artist.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Track.Wiki">
+            <summary>
+            The track wiki on Last.fm.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Track.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Track.ToString">
+            <summary>
+            String representation of the object.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetID">
+            <summary>
+            A unique Last.fm ID.
+            </summary>
+            <returns>
+            A <see cref="T:System.Int32" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetDuration">
+            <summary>
+            Returns the duration.
+            </summary>
+            <returns>
+            A <see cref="T:System.TimeSpan" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.IsStreamable">
+            <summary>
+            Returns true if the track is available for streaming.
+            </summary>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetAlbum">
+            <summary>
+            Returns the album of this track.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Album" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.Ban">
+            <summary>
+            Ban this track.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetSimilar">
+            <summary>
+            Return similar tracks.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.Love">
+            <summary>
+            Love this track.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Track.Equals(Lastfm.Services.Track)">
+            <summary>
+            Check to see if this object equals another.
+            </summary>
+            <param name="track">
+            A <see cref="T:Lastfm.Services.Track" /></param>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.Share(Lastfm.Services.Recipients,System.String)">
+            <summary>
+            Share this track with others.
+            </summary>
+            <param name="recipients">
+            A <see cref="T:Lastfm.Services.Recipients" /></param>
+            <param name="message">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.Share(Lastfm.Services.Recipients)">
+            <summary>
+            Share this track with others.
+            </summary>
+            <param name="recipients">
+            A <see cref="T:Lastfm.Services.Recipients" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.Search(System.String,System.String,Lastfm.Services.Session)">
+            <summary>
+            Search for tracks on Last.fm.
+            </summary>
+            <param name="artist">
+            A <see cref="T:System.String" /></param>
+            <param name="title">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TrackSearch" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.Search(System.String,Lastfm.Services.Session)">
+            <summary>
+            Search for tracks on Last.fm.
+            </summary>
+            <param name="title">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TrackSearch" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.AddTags(Lastfm.Services.Tag[])">
+            <summary>
+            Add tags to this track.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.AddTags(System.String[])">
+            <summary>
+            Add tags to this track.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.AddTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Add tags to this track.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetTags">
+            <summary>
+            Returns the tags set by the authenticated user to this track.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Tag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetTopTags">
+            <summary>
+            Return the top tags.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetTopTags(System.Int32)">
+            <summary>
+            Returns the top tags.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.RemoveTags(Lastfm.Services.Tag[])">
+            <summary>
+            Remove a bunch of tags from this track.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.RemoveTags(System.String[])">
+            <summary>
+            Remove a bunch of tags from this track.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.RemoveTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Remove a bunch of tags from this track.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.SetTags(System.String[])">
+            <summary>
+            Set the tags of this tracks to only those tags.
+            </summary>
+            <param name="tags">
+            A <see cref="T:System.String" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.SetTags(Lastfm.Services.Tag[])">
+            <summary>
+            Set the tags of this tracks to only those tags.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.Tag" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.SetTags(Lastfm.Services.TagCollection)">
+            <summary>
+            Set the tags of this tracks to only those tags.
+            </summary>
+            <param name="tags">
+            A <see cref="T:Lastfm.Services.TagCollection" /></param>
+        </member>
+        <member name="M:Lastfm.Services.Track.ClearTags">
+            <summary>
+            Clear all the tags from this track.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetTopFans">
+            <summary>
+            Returns the top fans.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopFan" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetTopFans(System.Int32)">
+            <summary>
+            Returns the top fans.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopFan" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetMBID">
+            <summary>
+            Returns the track's MusicBrainz id.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetByMBID(System.String,Lastfm.Services.Session)">
+            <summary>
+            Returns a track by its MusicBrainz id.
+            </summary>
+            <param name="mbid">
+            A <see cref="T:System.String" /></param>
+            <param name="session">
+            A <see cref="T:Lastfm.Services.Session" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Track.AddToPlaylist(Lastfm.Services.Playlist)">
+            <summary>
+            Add this track to a <see cref="T:Lastfm.Services.Playlist" /></summary>
+            <param name="playlist">
+            A <see cref="T:Lastfm.Services.Playlist" /></param>
+        </member>
+        <member name="T:Lastfm.Services.TrackSearch">
+            <summary>
+            Encapsulates the track searching functions.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.TrackSearch.GetPage(System.Int32)">
+            <summary>
+            Returns a page of results.
+            </summary>
+            <param name="page">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.TrackWiki">
+            <summary>
+            A track wiki on Last.fm.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.TrackWiki.Track">
+            <value>
+            The concerned track.
+            </value>
+        </member>
+        <member name="P:Lastfm.Services.TrackWiki.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.TrackWiki.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Retursn the object's Last.fm page url.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.User">
+            <summary>
+            A Last.fm user.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.User.Name">
+            <summary>
+            The user's name.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.User.Library">
+            <summary>
+            Returns the user's library.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.User.PastEvents">
+            <summary>
+            Returns the past events attended by this user.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.User.URL">
+            <summary>
+            The object's Last.fm page url.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.User.ToString">
+            <summary>
+            String representation of the object.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.Equals(Lastfm.Services.User)">
+            <summary>
+            Check to see if this object equals another.
+            </summary>
+            <param name="user">
+            A <see cref="T:Lastfm.Services.User" /></param>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetWeeklyTrackChart">
+            <summary>
+            Returns the latest weekly track chart.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyTrackChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetWeeklyTrackChart(Lastfm.Services.WeeklyChartTimeSpan)">
+            <summary>
+            Returns a weekly chart specified by a certain week.
+            </summary>
+            <param name="span">
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyTrackChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetWeeklyArtistChart">
+            <summary>
+            Returns the latest weekly artist chart.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyArtistChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetWeeklyArtistChart(Lastfm.Services.WeeklyChartTimeSpan)">
+            <summary>
+            Returns a weekly artist chart of a specified week.
+            </summary>
+            <param name="span">
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyArtistChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetWeeklyAlbumChart">
+            <summary>
+            Returns the latest weekly album chart.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyAlbumChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetWeeklyAlbumChart(Lastfm.Services.WeeklyChartTimeSpan)">
+            <summary>
+            Returns a weekly album chart of a specified week.
+            </summary>
+            <param name="span">
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyAlbumChart" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetWeeklyChartTimeSpans">
+            <summary>
+            Returns all the vailable weeks (as an array of <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" />)
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.WeeklyChartTimeSpan" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetTopTracks(Lastfm.Services.Period)">
+            <summary>
+            Returns the top tracks listened to by this user in a specified period.
+            </summary>
+            <param name="period">
+            A <see cref="T:Lastfm.Services.Period" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTrack" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetTopTracks">
+            <summary>
+            Returns the overall most listned-to tracks by this user.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTrack" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetTopTags">
+            <summary>
+            Returns the top tags used by this user.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetTopTags(System.Int32)">
+            <summary>
+            Returns the top tags used by this user.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopTag" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetTopArtists(Lastfm.Services.Period)">
+            <summary>
+            Returns the top artists listened-to by this user in a specified period.
+            </summary>
+            <param name="period">
+            A <see cref="T:Lastfm.Services.Period" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopArtist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetTopArtists">
+            <summary>
+            Returns teh overall most listened-to artists by this user.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopArtist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetTopAlbums(Lastfm.Services.Period)">
+            <summary>
+            Returns the most listened-to albums by this user in a specified period.
+            </summary>
+            <param name="period">
+            A <see cref="T:Lastfm.Services.Period" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopAlbum" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetTopAlbums">
+            <summary>
+            Returne the overall most listened-to albums by this user.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.TopAlbum" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetRecentTracks(System.Int32)">
+            <summary>
+            Returns the most recent played tracks for this user.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetRecentTracks">
+            <summary>
+            Returns the most recent played tracks for this user.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetNowPlaying">
+            <summary>
+            Returns the track that the user's currently listening to.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /> if the user is listening to a track, or null if they're not.
+            </returns>
+        </member>
+        <member name="M:Lastfm.Services.User.IsNowListening">
+            <summary>
+            Returns true if the user's listening right now.
+            </summary>
+            <returns>
+            A <see cref="T:System.Boolean" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetPlaylists">
+            <summary>
+            Returns this user's playlists.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Playlist" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetNeighbours">
+            <summary>
+            Returns the neighbours of this user.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.User" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetNeighbours(System.Int32)">
+            <summary>
+            Returns the neighbours of this user.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.User" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetLovedTracks">
+            <summary>
+            Returns the most recent 50 loved tracks by this user.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetFriends">
+            <summary>
+            Returns the user's friends.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.User" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetFriends(System.Int32)">
+            <summary>
+            Returns the user's friends.
+            </summary>
+            <param name="limit">
+            A <see cref="T:System.Int32" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.User" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetUpcomingEvents">
+            <summary>
+            Returns the upcoming events for this user.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Event" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.Compare(Lastfm.Services.User)">
+            <summary>
+            Compare this user with another.
+            </summary>
+            <param name="anotherUser">
+            A <see cref="T:Lastfm.Services.User" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Tasteometer" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.Compare(System.Collections.Generic.IEnumerable{Lastfm.Services.Artist})">
+            <summary>
+            Compare this user with a list of artists.
+            </summary>
+            <param name="artists">
+            A <see cref="!:IEnumerable`1" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Tasteometer" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.Compare(System.String)">
+            <summary>
+            Compare this user with a myspace profile.
+            </summary>
+            <param name="myspaceURL">
+            A <see cref="T:System.String" /></param>
+            <returns>
+            A <see cref="T:Lastfm.Services.Tasteometer" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.User.GetURL(Lastfm.Services.SiteLanguage)">
+            <summary>
+            Returns the Last.fm page of this object.
+            </summary>
+            <param name="language">
+            A <see cref="T:Lastfm.Services.SiteLanguage" /></param>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.Venue">
+            <summary>
+            A Last.fm venue.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.Venue.ID">
+            <value>
+            The venue ID.
+            </value>
+        </member>
+        <member name="P:Lastfm.Services.Venue.PastEvents">
+            <summary>
+            The past events held in this venue.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Venue.GetUpcomingEvents">
+            <summary>
+            Returns the upcoming <see cref="T:Lastfm.Services.Event" />s that are being held in this venue.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Event" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Venue.GetName">
+            <summary>
+            Returns the venue's name.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.VenuePastEvents">
+            <summary>
+            The past events of a venue.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.VenuePastEvents.Venue">
+            <value>
+            The venue.
+            </value>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyAlbumChart">
+            <summary>
+            A weekly album chart.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyAlbumChartItem">
+            <summary>
+            An album in a weekly chart list.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyAlbumChartItem.Album">
+            <summary>
+            The concerned album.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyArtistChart">
+            <summary>
+            A weekly artist chart.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyArtistChartItem">
+            <summary>
+            An artist in a weekly chart list.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyArtistChartItem.Artist">
+            <summary>
+            The concerned artist.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyChart`1">
+            <summary>
+            An abstract weekly chart.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyChart`1.Span">
+            <summary>
+            The time span (certain week) of this chart.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyChartItem">
+            <summary>
+            An abstract Weekly Chart Item class.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyChartItem.Rank">
+            <summary>
+            The rank of this item in the chart.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyChartItem.Playcount">
+            <value>
+            The number of playcounts during the timespan of the chart.
+            </value>
+            <summary> Playcounts during.</summary>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyChartItem.Span">
+            <summary>Time Span</summary>
+            <value>
+            The time span of this chart list.
+            </value>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyChartTimeSpan">
+            <summary>
+            A time span of a weekly chart.
+            </summary>
+            <remarks>
+            Usually are returned by <see cref="M:Lastfm.Services.IHasWeeklyAlbumCharts.GetWeeklyChartTimeSpans" />,
+            <see cref="M:Lastfm.Services.IHasWeeklyArtistCharts.GetWeeklyChartTimeSpans" />, or
+            <see cref="M:Lastfm.Services.IHasWeeklyTrackCharts.GetWeeklyChartTimeSpans" />.
+            </remarks>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyChartTimeSpan.From">
+            <summary>
+            The beginning date.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyChartTimeSpan.To">
+            <summary>
+            The end date.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyTrackChart">
+            <summary>
+            A Weekly Track Chart.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.WeeklyTrackChartItem">
+            <summary>
+            A Track in a weekly chart list.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.WeeklyTrackChartItem.Track">
+            <summary>
+            The concerned track.
+            </summary>
+        </member>
+        <member name="T:Lastfm.Services.Wiki">
+            <summary>
+            An abstract wiki object.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Services.Wiki.GetPublishedDate">
+            <summary>
+            Returns the date that the current version of the wiki was published on.
+            </summary>
+            <returns>
+            A <see cref="T:System.DateTime" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Wiki.GetSummary">
+            <summary>
+            Returns the summary of the content.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="M:Lastfm.Services.Wiki.getContent">
+            <summary>
+            Returns the entire content of the current version.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /></returns>
+        </member>
+        <member name="T:Lastfm.Services.XSPF">
+            <summary>
+            A Last.fm XSPF playlist.
+            </summary>
+        </member>
+        <member name="P:Lastfm.Services.XSPF.PlaylistUrl">
+            <value>
+            The Last.fm playlist url.
+            </value>
+            <summary>Playlist URL</summary>
+        </member>
+        <member name="M:Lastfm.Services.XSPF.GetTracks">
+            <summary>
+            Returns the tracks on this XSPF playlist.
+            </summary>
+            <returns>
+            A <see cref="T:Lastfm.Services.Track" /></returns>
+        </member>
+        <member name="T:Lastfm.Scrobbling.Connection">
+            <summary>
+            A connection to the Last.fm scrobbling service. Can be used individually for scrobbling
+            or through a <see cref="T:Lastfm.Scrobbling.ScrobbleManager" /> object.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Scrobbling.Connection.doHandshake">
+            <summary>
+            A handshake is performed at the beginning to retrieve the
+            SessionID, SubmissionURL and NowplayingURL and also everytime the server
+            reports that the SessionID is invalid.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Scrobbling.Connection.ReportNowplaying(Lastfm.Scrobbling.NowplayingTrack)">
+            <summary>
+            Send the now playing notification.
+            </summary>
+            <param name="track">
+            A <see cref="T:Lastfm.Scrobbling.NowplayingTrack" /></param>
+        </member>
+        <member name="M:Lastfm.Scrobbling.Connection.Scrobble(Lastfm.Scrobbling.PlayedTrack)">
+            <summary>
+            Public scrobble function. Scrobbles a PlayedTrack object.
+            </summary>
+            <param name="track">
+            A <see cref="T:Lastfm.Scrobbling.PlayedTrack" /></param>
+        </member>
+        <member name="M:Lastfm.Scrobbling.Connection.Scrobble(Lastfm.RequestParameters)">
+            <summary>
+            The internal scrobble function, scrobbles pure request parameters.
+            Could be for more than one track, as specified by Last.fm, but they recommend that
+            only one track should be submitted at a time.
+            </summary>
+            <param name="parameters">
+            A <see cref="T:Lastfm.RequestParameters" /></param>
+        </member>
+        <member name="M:Lastfm.Scrobbling.Connection.doFirstHandshake">
+            <summary>
+            Does the initial handshake.
+            </summary>
+        </member>
+        <member name="F:Lastfm.Scrobbling.PlaybackSource.User">
+            <summary>
+            Chosen by the user.
+            </summary>
+        </member>
+        <member name="F:Lastfm.Scrobbling.PlaybackSource.NonPersonalizedBroadcast">
+            <summary>
+            Non-personalised broadcast (e.g. Shoutcast, BBC Radio 1).
+            </summary>
+        </member>
+        <member name="F:Lastfm.Scrobbling.PlaybackSource.PersonalizedBroadcast">
+            <summary>
+            Personalised recommendation except Last.fm (e.g. Pandora, Launchcast).
+            </summary>
+        </member>
+        <member name="F:Lastfm.Scrobbling.PlaybackSource.Lastfm">
+            <summary>
+            Last.fm (any mode). In this case, the 5-digit Last.fm recommendation key must be set to this played track to
+            prove the validity of the submission
+            </summary>
+        </member>
+        <member name="F:Lastfm.Scrobbling.ScrobbleMode.Played">
+            <summary>
+            If a track has been fully played, or at least 30 or 50% of it has
+            </summary>
+        </member>
+        <member name="F:Lastfm.Scrobbling.ScrobbleMode.Banned">
+            <summary>
+            If a track has been banned, and it should automatically skip then as well. (only if source
+            is Last.fm)
+            </summary>
+        </member>
+        <member name="F:Lastfm.Scrobbling.ScrobbleMode.Skipped">
+            <summary>
+            If the track was skipped prematurely (only if source is Last.fm).
+            </summary>
+        </member>
+        <member name="T:Lastfm.Scrobbling.ScrobbleManager">
+            <summary>
+            A classs to be used by a media player,
+            it caches the tracks to a file first then scrobbles
+            them asynchronously on another thread.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Scrobbling.ScrobbleManager.Queue(Lastfm.Scrobbling.PlayedTrack)">
+            <summary>
+            Queues a <see cref="T:Lastfm.Scrobbling.PlayedTrack" /> for scrobbling, then
+            scrobbles it on another thread. Or at least tries to.
+            The <see cref="T:Lastfm.Scrobbling.PlayedTrack" /> info is cached locally firt, so
+            there's no fear of losing precious scrobbles.
+            </summary>
+            <param name="track">
+            A <see cref="T:Lastfm.Scrobbling.PlayedTrack" /></param>
+        </member>
+        <member name="M:Lastfm.Scrobbling.ScrobbleManager.Submit">
+            <summary>
+            Submits the cached scrobbles if any. You shouldn't really concern
+            yourself with calling. It gets called upon each new queued track.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Scrobbling.ScrobbleManager.threadedSubmit">
+            <summary>
+            Called internally by the scrobbling thread.
+            </summary>
+        </member>
+        <member name="M:Lastfm.Scrobbling.ScrobbleManager.ReportNowplaying(Lastfm.Scrobbling.NowplayingTrack)">
+            <summary>
+            Relays a Now Playing report to the underlying
+            connection. For luxury purposes only.
+            </summary>
+            <param name="track">
+            A <see cref="T:Lastfm.Scrobbling.NowplayingTrack" /></param>
+        </member>
+    </members>
+</doc>
