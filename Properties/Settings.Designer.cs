@@ -38,18 +38,6 @@ namespace PlaylistPanda.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastFmPassword {
-            get {
-                return ((string)(this["LastFmPassword"]));
-            }
-            set {
-                this["LastFmPassword"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string DefaultTimeSpan {
             get {
                 return ((string)(this["DefaultTimeSpan"]));
@@ -67,6 +55,54 @@ namespace PlaylistPanda.Properties {
             }
             set {
                 this["Locations"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastFmSessionKey {
+            get {
+                return ((string)(this["LastFmSessionKey"]));
+            }
+            set {
+                this["LastFmSessionKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ProxyUri {
+            get {
+                return ((string)(this["ProxyUri"]));
+            }
+            set {
+                this["ProxyUri"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ProxyUsername {
+            get {
+                return ((string)(this["ProxyUsername"]));
+            }
+            set {
+                this["ProxyUsername"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ProxyEnabled {
+            get {
+                return ((bool)(this["ProxyEnabled"]));
+            }
+            set {
+                this["ProxyEnabled"] = value;
             }
         }
     }
