@@ -1,5 +1,8 @@
 namespace PlaylistPanda.Slurp
 {
+    /// <summary>
+    /// Represents the bare minimum of a song's tag information.
+    /// </summary>
     public class Song
     {
         public string Path { get; set; }

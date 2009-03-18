@@ -105,5 +105,17 @@ namespace PlaylistPanda.Properties {
                 this["ProxyEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int ThreadsPerProcessor {
+            get {
+                return ((int)(this["ThreadsPerProcessor"]));
+            }
+            set {
+                this["ThreadsPerProcessor"] = value;
+            }
+        }
     }
 }

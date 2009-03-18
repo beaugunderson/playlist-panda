@@ -97,18 +97,16 @@ namespace PlaylistPanda
 
             User user = new User(Settings.Default.LastFmUserName, session);
 
-            //TopTrack[] tracks = user.GetTopTracks(Period.Overall);
-
-            int pages = user.Library.Tracks.GetPageCount();
-
             List<LibraryTrack> tracks = new List<LibraryTrack>();
 
-            for (int page = 1; page <= pages; page++)
+            for (int page = 1; page <= user.Library.Tracks.GetPageCount(); page++)
             {
                 Console.WriteLine("Adding page {0}.", page);
-                
+
                 tracks.AddRange(user.Library.Tracks.GetPage(page));
             }
+
+            //TopTrack[] tracks = user.GetTopTracks(Period.Overall);
 
             //foreach (TopTrack track in tracks)
             //{
@@ -140,7 +138,8 @@ namespace PlaylistPanda
                 // If the file doesn't exist slurp files from the specified locations.
                 localFiles = new LocalFiles
                 {
-                    Locations = Settings.Default.Locations
+                    Locations = Settings.Default.Locations,
+                    ThreadsPerProcessor = Settings.Default.ThreadsPerProcessor
                 };
 
                 localFiles.Slurp();

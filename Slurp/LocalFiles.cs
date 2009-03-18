@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Threading;
@@ -16,6 +15,8 @@ namespace PlaylistPanda.Slurp
 
         [XmlArrayItem("Song", typeof(Song))]
         public ArrayList Songs { get; set; }
+
+        public int ThreadsPerProcessor { get; set; }
 
         private static readonly string[] _extensions = new[] { ".mp3", ".wma", ".mp4", ".wav", ".ra", ".flac", ".mpc", ".ogg", ".mp2" };
 
@@ -51,13 +52,13 @@ namespace PlaylistPanda.Slurp
             Console.WriteLine("Got {0} files.", files.Length);
 
             // Divide the list up into chunks
-            int workItems = Environment.ProcessorCount * 5;
+            int workItems = Environment.ProcessorCount * ThreadsPerProcessor;
             int chunkSize = Math.Max(files.Count() / workItems, 1);
 
             int count = workItems;
 
             // Use an event to wait for all work items
-            using (var mre = new ManualResetEvent(false))
+            using (var manualResetEvent = new ManualResetEvent(false))
             {
                 // Each work item processes appx 1/Nth of the data items
                 WaitCallback callback = state =>
@@ -77,7 +78,7 @@ namespace PlaylistPanda.Slurp
 
                     if (Interlocked.Decrement(ref count) == 0)
                     {
-                        mre.Set();
+                        manualResetEvent.Set();
                     }
                 };
 
@@ -97,10 +98,14 @@ namespace PlaylistPanda.Slurp
                 }
 
                 // Wait for all work to complete
-                mre.WaitOne();
+                manualResetEvent.WaitOne();
             }
         }
 
+        /// <summary>
+        /// Add tag information from a file to the Songs collection.
+        /// </summary>
+        /// <param name="file"></param>
         private void processFile(FileSystemInfo file)
         {
             if (!_extensions.Contains(file.Extension))
@@ -112,6 +117,7 @@ namespace PlaylistPanda.Slurp
             {
                 TagLib.File tagFile = TagLib.File.Create(file.FullName);
 
+                // XXX: Is adding to an ArrayList thread-safe?
                 Songs.Add(new Song(file.FullName, tagFile.Tag.JoinedPerformers, tagFile.Tag.Album, tagFile.Tag.Title));
             }
             catch (TagLib.CorruptFileException)
