@@ -24,6 +24,9 @@ namespace PlaylistPanda
         private const string _API_KEY = "7c54e029ae58a00acb284990211777c7";
         private const string _API_SECRET = "f49bb9cd3afb30e99b7dbd749626c44d";
 
+        private LocalFiles _localFiles;
+        private readonly List<LibraryTrack> _tracks = new List<LibraryTrack>();
+
         /// <summary>
         /// Returns false if the saved options aren't valid.
         /// </summary>
@@ -59,7 +62,10 @@ namespace PlaylistPanda
             }
 
             BackgroundWorker backgroundWorker = new BackgroundWorker();
+
             backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+
             backgroundWorker.RunWorkerAsync();
 
             if (Settings.Default.ProxyEnabled && !string.IsNullOrEmpty(Settings.Default.ProxyUri))
@@ -97,28 +103,32 @@ namespace PlaylistPanda
 
             User user = new User(Settings.Default.LastFmUserName, session);
 
-            List<LibraryTrack> tracks = new List<LibraryTrack>();
-
-            int pages = user.Library.Tracks.GetPageCount();
+            // int pages = user.Library.Tracks.GetPageCount();
+            const int pages = 5;
 
             for (int page = 1; page <= pages; page++)
             {
                 Console.WriteLine("Adding page {0}.", page);
 
-                tracks.AddRange(user.Library.Tracks.GetPage(page));
+                _tracks.AddRange(user.Library.Tracks.GetPage(page));
             }
 
-            //TopTrack[] tracks = user.GetTopTracks(Period.Overall);
+            //TopTrack[] _tracks = user.GetTopTracks(Period.Overall);
 
             // XXX: These are returned ordered by play count but that could
             // change, add our own ordering 
-            foreach (LibraryTrack track in tracks)
+            foreach (LibraryTrack track in _tracks)
             {
                 topTracksListBox.Items.Add(string.Format("{0} - {1} - {2}", track.Playcount, track.Track.Artist.Name, track.Track.Title));
             }
         }
 
-        private static void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            matchButton.Enabled = true;
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
 
@@ -127,7 +137,6 @@ namespace PlaylistPanda
             string localFilesPath = Path.Combine(_path, "LocalFiles.xml");
 
             XmlSerializer serializer = new XmlSerializer(typeof(LocalFiles));
-            LocalFiles localFiles;
 
             if (File.Exists(localFilesPath))
             {
@@ -135,22 +144,22 @@ namespace PlaylistPanda
                 // TODO: Add expiration date logic to re-slurp files.
                 TextReader reader = new StreamReader(localFilesPath);
 
-                localFiles = (LocalFiles)serializer.Deserialize(reader);
+                _localFiles = (LocalFiles)serializer.Deserialize(reader);
             }
             else
             {
                 // If the file doesn't exist slurp files from the specified locations.
-                localFiles = new LocalFiles
+                _localFiles = new LocalFiles
                 {
                     Locations = Settings.Default.Locations,
                     ThreadsPerProcessor = Settings.Default.ThreadsPerProcessor
                 };
 
-                localFiles.Slurp();
+                _localFiles.Slurp();
 
                 TextWriter writer = new StreamWriter(Path.Combine(_path, "LocalFiles.xml"));
 
-                serializer.Serialize(writer, localFiles);
+                serializer.Serialize(writer, _localFiles);
                 writer.Close();
             }
 
@@ -158,7 +167,7 @@ namespace PlaylistPanda
 
             // TODO: Output debugging data another way.
             Console.WriteLine("Total time: {0}", stopwatch.Elapsed);
-            Console.WriteLine("Total songs added: {0}", localFiles.Songs.Count);
+            Console.WriteLine("Total songs added: {0}", _localFiles.Songs.Count);
         }
 
         /// <summary>
@@ -171,6 +180,42 @@ namespace PlaylistPanda
             OptionsForm optionsForm = new OptionsForm();
 
             optionsForm.ShowDialog();
+        }
+
+        private void matchButton_Click(object sender, EventArgs e)
+        {
+            Dictionary<LibraryTrack, List<Song>> possibleMatches = new Dictionary<LibraryTrack, List<Song>>();
+
+            foreach (Song song in _localFiles.Songs)
+            {
+                foreach (LibraryTrack track in _tracks)
+                {
+                    if (LevenshteinDistance.ComputeDistance(song.Artist, track.Track.Artist.Name) < 3 &&
+                        LevenshteinDistance.ComputeDistance(song.Title, track.Track.Title) < 3)
+                    {
+                        if (possibleMatches.ContainsKey(track))
+                        {
+                            possibleMatches[track].Add(song);
+                        }
+                        else
+                        {
+                            possibleMatches.Add(track, new List<Song>());
+
+                            possibleMatches[track].Add(song);
+                        }
+                    }
+                }
+            }
+
+            foreach (KeyValuePair<LibraryTrack, List<Song>> kvp in possibleMatches)
+            {
+                Console.WriteLine("{0} - {1}:", kvp.Key.Track.Artist, kvp.Key.Track.Title);
+
+                foreach (Song song in kvp.Value)
+                {
+                    Console.WriteLine("   {2} ({0} - {1})", song.Artist, song.Title, song.Path);
+                }
+            }
         }
     }
 }
