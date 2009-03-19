@@ -28,7 +28,7 @@ namespace PlaylistPanda
         /// Returns false if the saved options aren't valid.
         /// </summary>
         /// <returns></returns>
-        public static bool OptionsAreValid()
+        private static bool optionsAreValid()
         {
             if (string.IsNullOrEmpty(Settings.Default.LastFmUserName) ||
                 string.IsNullOrEmpty(Settings.Default.LastFmPassword) ||
@@ -50,7 +50,7 @@ namespace PlaylistPanda
                 Directory.CreateDirectory(_path);
             }
 
-            if (!OptionsAreValid())
+            if (!optionsAreValid())
             {
                 while (new OptionsForm().ShowDialog() != DialogResult.OK)
                 {
@@ -99,7 +99,9 @@ namespace PlaylistPanda
 
             List<LibraryTrack> tracks = new List<LibraryTrack>();
 
-            for (int page = 1; page <= user.Library.Tracks.GetPageCount(); page++)
+            int pages = user.Library.Tracks.GetPageCount();
+
+            for (int page = 1; page <= pages; page++)
             {
                 Console.WriteLine("Adding page {0}.", page);
 
@@ -108,13 +110,15 @@ namespace PlaylistPanda
 
             //TopTrack[] tracks = user.GetTopTracks(Period.Overall);
 
-            //foreach (TopTrack track in tracks)
-            //{
-            //    topTracksListBox.Items.Add(string.Format("{0} - {1} - {2}", track.Weight, track.Item.Artist.Name, track.Item.Title));
-            //}
+            // XXX: These are returned ordered by play count but that could
+            // change, add our own ordering 
+            foreach (LibraryTrack track in tracks)
+            {
+                topTracksListBox.Items.Add(string.Format("{0} - {1} - {2}", track.Playcount, track.Track.Artist.Name, track.Track.Title));
+            }
         }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private static void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
 

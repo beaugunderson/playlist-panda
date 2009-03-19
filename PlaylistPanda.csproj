@@ -31,9 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="lastfm-sharp, Version=0.1.10.10793, Culture=neutral, PublicKeyToken=ac974b34236b3339, processorArchitecture=MSIL">
+    <Reference Include="lastfm-sharp, Version=0.1.10.17649, Culture=neutral, PublicKeyToken=ac974b34236b3339, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Shared Binaries\lastfm-sharp.dll</HintPath>
+      <HintPath>Shared Binaries\Release\lastfm-sharp.dll</HintPath>
     </Reference>
     <Reference Include="policy.2.0.taglib-sharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0">
       <SpecificVersion>False</SpecificVersion>

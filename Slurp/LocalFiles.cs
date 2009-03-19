@@ -32,7 +32,7 @@ namespace PlaylistPanda.Slurp
             {
                 if (Directory.Exists(location))
                 {
-                    RecursiveSlurp(location);
+                    slurpLocation(location);
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace PlaylistPanda.Slurp
             }
         }
 
-        public void RecursiveSlurp(object stateInfo)
+        private void slurpLocation(object stateInfo)
         {
             string location = (string)stateInfo;
 
