@@ -26,6 +26,9 @@ namespace PlaylistPanda
 
         private LocalFiles _localFiles;
         private readonly List<LibraryTrack> _tracks = new List<LibraryTrack>();
+        private User _user;
+        private bool _lastFmDone;
+        private bool _slurpDone;
 
         /// <summary>
         /// Returns false if the saved options aren't valid.
@@ -55,18 +58,15 @@ namespace PlaylistPanda
 
             if (!optionsAreValid())
             {
-                while (new OptionsForm().ShowDialog() != DialogResult.OK)
-                {
-                    // Keep showing the OptionsForm until they save successfully.
-                }
+                new OptionsForm().ShowUntilDialogResultOk();
             }
 
-            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            BackgroundWorker slurpWorker = new BackgroundWorker();
 
-            backgroundWorker.DoWork += backgroundWorker_DoWork;
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            slurpWorker.DoWork += backgroundWorker_DoWork;
+            slurpWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
 
-            backgroundWorker.RunWorkerAsync();
+            slurpWorker.RunWorkerAsync();
 
             if (Settings.Default.ProxyEnabled && !string.IsNullOrEmpty(Settings.Default.ProxyUri))
             {
@@ -87,7 +87,7 @@ namespace PlaylistPanda
                 // Open the Last.FM authorization page in the default web browser.
                 Process.Start(session.GetWebAuthenticationURL());
 
-                // TODO: Make this easier for the user.
+                // TODO: Make this easier for the user?
                 MessageBox.Show("Click OK to continue once you have logged in at Last.FM.");
 
                 session.AuthenticateViaWeb();
@@ -101,31 +101,75 @@ namespace PlaylistPanda
             Settings.Default.LastFmSessionKey = session.SessionKey;
             Settings.Default.Save();
 
-            User user = new User(Settings.Default.LastFmUserName, session);
+            _user = new User(Settings.Default.LastFmUserName, session);
 
-            // int pages = user.Library.Tracks.GetPageCount();
-            const int pages = 5;
+            BackgroundWorker lastFmWorker = new BackgroundWorker();
 
-            for (int page = 1; page <= pages; page++)
-            {
-                Console.WriteLine("Adding page {0}.", page);
+            lastFmWorker.DoWork += lastFmWorker_DoWork;
+            lastFmWorker.RunWorkerCompleted += lastFmWorker_RunWorkerCompleted;
 
-                _tracks.AddRange(user.Library.Tracks.GetPage(page));
-            }
+            lastFmWorker.RunWorkerAsync();
+        }
 
-            //TopTrack[] _tracks = user.GetTopTracks(Period.Overall);
+        void lastFmWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // Sort ourselves (descending by Playcount) in case Last.FM no longer sorts the data for us
+            _tracks.Sort((x, y) => y.Playcount.CompareTo(x.Playcount));
 
-            // TODO: These are returned ordered by play count but that could
-            // change, add our own ordering 
             foreach (LibraryTrack track in _tracks)
             {
                 topTracksListBox.Items.Add(string.Format("{0} - {1} - {2}", track.Playcount, track.Track.Artist.Name, track.Track.Title));
             }
+
+            _lastFmDone = true;
+
+            enableMatchButton();
         }
 
-        void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        void lastFmWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            matchButton.Enabled = true;
+            int maxTracks = Settings.Default.PlaylistTracks;
+
+            int totalPages = _user.Library.Tracks.GetPageCount();
+
+            for (int page = 1; page <= totalPages; page++)
+            {
+                LibraryTrack[] tracks = _user.Library.Tracks.GetPage(page);
+
+                Trace.WriteLine(string.Format("Added page {0}.", page));
+
+                if (_tracks.Count + tracks.Length > maxTracks)
+                {
+                    _tracks.AddRange(tracks.Slice(0, maxTracks - _tracks.Count));
+
+                    break;
+                }
+
+                _tracks.AddRange(tracks);
+            }
+
+            Trace.WriteLine(string.Format("Added {0} tracks.", _tracks.Count));
+
+            // TODO: Blend in GetTopTracks data for other periods.
+            //TopTrack[] _tracks = user.GetTopTracks(Period.Overall);        
+        }
+
+        /// <summary>
+        /// Enable the Match button only if slurping and Last.FM data gathering is done.
+        /// </summary>
+        private void enableMatchButton()
+        {
+            if (_slurpDone && _lastFmDone)
+            {
+                matchButton.Enabled = true;
+            }
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            _slurpDone = true;
+
+            enableMatchButton();
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -152,7 +196,8 @@ namespace PlaylistPanda
                 _localFiles = new LocalFiles
                 {
                     Locations = Settings.Default.Locations,
-                    ThreadsPerProcessor = Settings.Default.ThreadsPerProcessor
+                    ThreadsPerProcessor = Settings.Default.ThreadsPerProcessor,
+                    Extensions = Settings.Default.Extensions
                 };
 
                 _localFiles.Slurp();
@@ -202,19 +247,21 @@ namespace PlaylistPanda
                         continue;
                     }
 
-                    if (LevenshteinDistance.ComputeDistance(song.Artist, track.Track.Artist.Name) < 3 &&
-                        LevenshteinDistance.ComputeDistance(song.Title, track.Track.Title) < 3)
+                    if (LevenshteinDistance.ComputeDistance(song.Artist, track.Track.Artist.Name) >= 3 ||
+                        LevenshteinDistance.ComputeDistance(song.Title, track.Track.Title) >= 3)
                     {
-                        if (possibleMatches.ContainsKey(track))
-                        {
-                            possibleMatches[track].Add(song);
-                        }
-                        else
-                        {
-                            possibleMatches.Add(track, new List<Song>());
+                        continue;
+                    }
 
-                            possibleMatches[track].Add(song);
-                        }
+                    if (possibleMatches.ContainsKey(track))
+                    {
+                        possibleMatches[track].Add(song);
+                    }
+                    else
+                    {
+                        possibleMatches.Add(track, new List<Song>());
+
+                        possibleMatches[track].Add(song);
                     }
                 }
             }

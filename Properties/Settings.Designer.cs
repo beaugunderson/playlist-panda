@@ -117,5 +117,40 @@ namespace PlaylistPanda.Properties {
                 this["ThreadsPerProcessor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int PlaylistTracks {
+            get {
+                return ((int)(this["PlaylistTracks"]));
+            }
+            set {
+                this["PlaylistTracks"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>.mp3</string>
+  <string>.wma</string>
+  <string>.mp4</string>
+  <string>.wav</string>
+  <string>.ra</string>
+  <string>.flac</string>
+  <string>.mpc</string>
+  <string>.ogg</string>
+  <string>.mp2</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection Extensions {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Extensions"]));
+            }
+            set {
+                this["Extensions"] = value;
+            }
+        }
     }
 }

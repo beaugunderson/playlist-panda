@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
@@ -7,6 +9,7 @@ using System.Threading;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using PlaylistPanda.Properties;
 
 namespace PlaylistPanda.Slurp
 {
@@ -20,10 +23,16 @@ namespace PlaylistPanda.Slurp
 
         public int ThreadsPerProcessor { get; set; }
 
-        // TODO: Extract extensions to a user setting.
-        private static readonly string[] _extensions = new[] { ".mp3", ".wma", ".mp4", ".wav", ".ra", ".flac", ".mpc", ".ogg", ".mp2" };
-
         private readonly object _locker = new object();
+
+        public string[] _extensions;
+        public StringCollection Extensions
+        {
+            set
+            {
+                _extensions = (string[])new ArrayList(value).ToArray(typeof(string));
+            }
+        }
 
         public LocalFiles()
         {
@@ -31,24 +40,33 @@ namespace PlaylistPanda.Slurp
             Songs = new List<Song>();
         }
 
-        public void Slurp()
+        public bool LocationsAreValid()
         {
             foreach (string location in Locations)
             {
-                if (Directory.Exists(location))
-                {
-                    slurpLocation(location);
-                }
-                else
+                if (!Directory.Exists(location))
                 {
                     MessageBox.Show(string.Format("The location \"{0}\" did not exist. Please choose a location that exists.", location));
 
-                    // TODO: Add checking here.
-                    OptionsForm optionsForm = new OptionsForm();
-                    optionsForm.ShowDialog();
+                    new OptionsForm().ShowUntilDialogResultOk();
 
-                    return;
+                    return false;
                 }
+            }
+
+            return true;
+        }
+
+        public void Slurp()
+        {
+            if (!LocationsAreValid())
+            {
+                return;
+            }
+
+            foreach (string location in Locations)
+            {
+                slurpLocation(location);
             }
 
             Songs.Sort();
@@ -69,19 +87,17 @@ namespace PlaylistPanda.Slurp
 
             int count = workItems;
 
-            Trace.Indent();
-
             // Use an event to wait for all work items
             using (var manualResetEvent = new ManualResetEvent(false))
             {
-                // Each work item processes appx 1/Nth of the data items
+                // Each work item processes approx. 1/Nth of the data items
                 WaitCallback callback = state =>
                 {
                     int iteration = (int)state;
                     int from = chunkSize * iteration;
                     int to = iteration == workItems - 1 ? files.Count() : chunkSize * (iteration + 1);
 
-                    Trace.WriteLine(string.Format("Sub-tasked {0} files.", to - from));
+                    Trace.WriteLine(string.Format("Thread {1}: Sub-tasked {0} files.", to - from, iteration));
 
                     // Create a per-thread list to add to the main list at the end.
                     List<Song> songs = new List<Song>();
@@ -97,7 +113,7 @@ namespace PlaylistPanda.Slurp
                         }
                     }
 
-                    Trace.WriteLine(string.Format("Filled {0} songs from thread {1}.", songs.Count, iteration));
+                    Trace.WriteLine(string.Format("Thread {1}: Filled {0} songs.", songs.Count, iteration));
 
                     lock (_locker)
                     {
@@ -134,7 +150,7 @@ namespace PlaylistPanda.Slurp
         /// Add tag information from a file to the Songs collection.
         /// </summary>
         /// <param name="file">The <see cref="FileSystemInfo"/> of an audio file to process with <see cref="TagLib"/>.</param>
-        private static Song songFromFileSystemInfo(FileSystemInfo file)
+        private Song songFromFileSystemInfo(FileSystemInfo file)
         {
             if (!_extensions.Contains(file.Extension))
             {

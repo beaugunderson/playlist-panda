@@ -26,5 +26,22 @@
     <Setting Name="ThreadsPerProcessor" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="PlaylistTracks" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="Extensions" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;.mp3&lt;/string&gt;
+  &lt;string&gt;.wma&lt;/string&gt;
+  &lt;string&gt;.mp4&lt;/string&gt;
+  &lt;string&gt;.wav&lt;/string&gt;
+  &lt;string&gt;.ra&lt;/string&gt;
+  &lt;string&gt;.flac&lt;/string&gt;
+  &lt;string&gt;.mpc&lt;/string&gt;
+  &lt;string&gt;.ogg&lt;/string&gt;
+  &lt;string&gt;.mp2&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
