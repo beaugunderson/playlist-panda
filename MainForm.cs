@@ -171,7 +171,7 @@ namespace PlaylistPanda
         }
 
         /// <summary>
-        /// Show the OptionsForm.
+        /// Show the <see cref="OptionsForm"/>.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -184,12 +184,27 @@ namespace PlaylistPanda
 
         private void matchButton_Click(object sender, EventArgs e)
         {
+            matchButton.Enabled = false;
+
+            Console.WriteLine("Matching songs now.");
+
             Dictionary<LibraryTrack, List<Song>> possibleMatches = new Dictionary<LibraryTrack, List<Song>>();
 
-            foreach (Song song in _localFiles.Songs)
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            foreach (LibraryTrack track in _tracks)
             {
-                foreach (LibraryTrack track in _tracks)
+
+                foreach (Song song in _localFiles.Songs)
                 {
+                    if (string.IsNullOrEmpty(song.Artist) ||
+                        string.IsNullOrEmpty(song.Title))
+                    {
+                        continue;
+                    }
+
                     if (LevenshteinDistance.ComputeDistance(song.Artist, track.Track.Artist.Name) < 3 &&
                         LevenshteinDistance.ComputeDistance(song.Title, track.Track.Title) < 3)
                     {
@@ -207,6 +222,10 @@ namespace PlaylistPanda
                 }
             }
 
+            stopwatch.Stop();
+
+            Console.WriteLine("Levenshtein comparisons done in {0}", stopwatch.Elapsed);
+
             foreach (KeyValuePair<LibraryTrack, List<Song>> kvp in possibleMatches)
             {
                 Console.WriteLine("{0} - {1}:", kvp.Key.Track.Artist, kvp.Key.Track.Title);
@@ -216,6 +235,8 @@ namespace PlaylistPanda
                     Console.WriteLine("   {2} ({0} - {1})", song.Artist, song.Title, song.Path);
                 }
             }
+
+            matchButton.Enabled = true;
         }
     }
 }

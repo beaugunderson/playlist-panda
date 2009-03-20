@@ -102,6 +102,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Properties\Settings.cs" />
+    <Compile Include="SanitizeXml.cs" />
     <Compile Include="Slurp\LocalFiles.cs" />
     <Compile Include="Slurp\Song.cs" />
   </ItemGroup>
