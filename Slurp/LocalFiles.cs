@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace PlaylistPanda.Slurp
@@ -18,6 +20,7 @@ namespace PlaylistPanda.Slurp
 
         public int ThreadsPerProcessor { get; set; }
 
+        // TODO: Extract extensions to a user setting.
         private static readonly string[] _extensions = new[] { ".mp3", ".wma", ".mp4", ".wav", ".ra", ".flac", ".mpc", ".ogg", ".mp2" };
 
         private readonly object _locker = new object();
@@ -38,7 +41,13 @@ namespace PlaylistPanda.Slurp
                 }
                 else
                 {
-                    Console.WriteLine("Directory did not exist: {0}", location);
+                    MessageBox.Show(string.Format("The location \"{0}\" did not exist. Please choose a location that exists.", location));
+
+                    // TODO: Add checking here.
+                    OptionsForm optionsForm = new OptionsForm();
+                    optionsForm.ShowDialog();
+
+                    return;
                 }
             }
 
@@ -49,18 +58,18 @@ namespace PlaylistPanda.Slurp
         {
             string location = (string)stateInfo;
 
-            Console.WriteLine("Slurping tags from files in {0}", location);
-
             // Get every file underneath the path given
             FileInfo[] files = new DirectoryInfo(location).GetFiles("*", SearchOption.AllDirectories);
 
-            Console.WriteLine("Got {0} files.", files.Length);
+            Trace.WriteLine(string.Format("Got {0} files in {1}", files.Length, location));
 
             // Divide the list up into chunks
             int workItems = Environment.ProcessorCount * ThreadsPerProcessor;
             int chunkSize = Math.Max(files.Count() / workItems, 1);
 
             int count = workItems;
+
+            Trace.Indent();
 
             // Use an event to wait for all work items
             using (var manualResetEvent = new ManualResetEvent(false))
@@ -72,7 +81,7 @@ namespace PlaylistPanda.Slurp
                     int from = chunkSize * iteration;
                     int to = iteration == workItems - 1 ? files.Count() : chunkSize * (iteration + 1);
 
-                    Console.WriteLine("   Sub-tasked {0} files.", to - from);
+                    Trace.WriteLine(string.Format("Sub-tasked {0} files.", to - from));
 
                     // Create a per-thread list to add to the main list at the end.
                     List<Song> songs = new List<Song>();
@@ -88,7 +97,7 @@ namespace PlaylistPanda.Slurp
                         }
                     }
 
-                    Console.WriteLine("   Filled {0} songs.", songs.Count);
+                    Trace.WriteLine(string.Format("Filled {0} songs from thread {1}.", songs.Count, iteration));
 
                     lock (_locker)
                     {
@@ -140,11 +149,11 @@ namespace PlaylistPanda.Slurp
             }
             catch (TagLib.CorruptFileException)
             {
-                Console.WriteLine("Unable to read file (CorruptFile): {0}", file.FullName);
+                Trace.WriteLine(string.Format("Unable to read file (CorruptFile): {0}", file.FullName));
             }
             catch (TagLib.UnsupportedFormatException)
             {
-                Console.WriteLine("Unable to read file (UnsupportedFormat): {0}", file.FullName);
+                Trace.WriteLine(string.Format("Unable to read file (UnsupportedFormat): {0}", file.FullName));
             }
 
             return tagFile == null ? new Song(file.FullName, string.Empty, string.Empty, string.Empty) :

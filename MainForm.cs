@@ -87,7 +87,7 @@ namespace PlaylistPanda
                 // Open the Last.FM authorization page in the default web browser.
                 Process.Start(session.GetWebAuthenticationURL());
 
-                // XXX: Make this easier for the user.
+                // TODO: Make this easier for the user.
                 MessageBox.Show("Click OK to continue once you have logged in at Last.FM.");
 
                 session.AuthenticateViaWeb();
@@ -115,7 +115,7 @@ namespace PlaylistPanda
 
             //TopTrack[] _tracks = user.GetTopTracks(Period.Overall);
 
-            // XXX: These are returned ordered by play count but that could
+            // TODO: These are returned ordered by play count but that could
             // change, add our own ordering 
             foreach (LibraryTrack track in _tracks)
             {
@@ -165,9 +165,8 @@ namespace PlaylistPanda
 
             stopwatch.Stop();
 
-            // TODO: Output debugging data another way.
-            Console.WriteLine("Total time: {0}", stopwatch.Elapsed);
-            Console.WriteLine("Total songs added: {0}", _localFiles.Songs.Count);
+            Trace.WriteLine(string.Format("Total time: {0}", stopwatch.Elapsed));
+            Trace.WriteLine(string.Format("Total songs added: {0}", _localFiles.Songs.Count));
         }
 
         /// <summary>
@@ -186,8 +185,6 @@ namespace PlaylistPanda
         {
             matchButton.Enabled = false;
 
-            Console.WriteLine("Matching songs now.");
-
             Dictionary<LibraryTrack, List<Song>> possibleMatches = new Dictionary<LibraryTrack, List<Song>>();
 
             Stopwatch stopwatch = new Stopwatch();
@@ -196,12 +193,12 @@ namespace PlaylistPanda
 
             foreach (LibraryTrack track in _tracks)
             {
-
                 foreach (Song song in _localFiles.Songs)
                 {
                     if (string.IsNullOrEmpty(song.Artist) ||
                         string.IsNullOrEmpty(song.Title))
                     {
+                        // TODO: Compare based on the file name.
                         continue;
                     }
 
@@ -224,16 +221,19 @@ namespace PlaylistPanda
 
             stopwatch.Stop();
 
-            Console.WriteLine("Levenshtein comparisons done in {0}", stopwatch.Elapsed);
+            Trace.WriteLine(string.Format("Levenshtein comparisons done in {0}", stopwatch.Elapsed));
 
             foreach (KeyValuePair<LibraryTrack, List<Song>> kvp in possibleMatches)
             {
-                Console.WriteLine("{0} - {1}:", kvp.Key.Track.Artist, kvp.Key.Track.Title);
+                Trace.WriteLine(string.Format("{0} - {1}:", kvp.Key.Track.Artist, kvp.Key.Track.Title));
+                Trace.Indent();
 
                 foreach (Song song in kvp.Value)
                 {
-                    Console.WriteLine("   {2} ({0} - {1})", song.Artist, song.Title, song.Path);
+                    Trace.WriteLine(string.Format("{2} ({0} - {1})", song.Artist, song.Title, song.Path));
                 }
+
+                Trace.Unindent();
             }
 
             matchButton.Enabled = true;
