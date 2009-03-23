@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
@@ -9,7 +8,6 @@ using System.Threading;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using PlaylistPanda.Properties;
 
 namespace PlaylistPanda.Slurp
 {
@@ -25,12 +23,26 @@ namespace PlaylistPanda.Slurp
 
         private readonly object _locker = new object();
 
-        public string[] _extensions;
+        private string[] _extensions;
+
+        // We go through this trouble to gain an optimization
+        // by using a string array instead of a StringCollection
+        // for the extension comparison
+        [XmlArrayItem("Extension", typeof(string))]
         public StringCollection Extensions
         {
             set
             {
                 _extensions = (string[])new ArrayList(value).ToArray(typeof(string));
+            }
+
+            get
+            {
+                StringCollection stringCollection = new StringCollection();
+
+                stringCollection.AddRange(_extensions);
+
+                return stringCollection;
             }
         }
 

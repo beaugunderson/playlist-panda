@@ -112,7 +112,7 @@
             this.Controls.Add(this.topTracksListBox);
             this.Controls.Add(this.optionsButton);
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Playlist Panda";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
