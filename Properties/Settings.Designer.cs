@@ -136,6 +136,7 @@ namespace PlaylistPanda.Properties {
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>.mp3</string>
   <string>.wma</string>
+  <string>.aac</string>
   <string>.mp4</string>
   <string>.wav</string>
   <string>.ra</string>

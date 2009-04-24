@@ -34,6 +34,7 @@
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
   &lt;string&gt;.mp3&lt;/string&gt;
   &lt;string&gt;.wma&lt;/string&gt;
+  &lt;string&gt;.aac&lt;/string&gt;
   &lt;string&gt;.mp4&lt;/string&gt;
   &lt;string&gt;.wav&lt;/string&gt;
   &lt;string&gt;.ra&lt;/string&gt;

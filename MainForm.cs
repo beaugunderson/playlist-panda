@@ -188,30 +188,48 @@ namespace PlaylistPanda
                 // TODO: Add expiration date logic to re-slurp files.
                 TextReader reader = new StreamReader(localFilesPath);
 
-                _localFiles = (LocalFiles)serializer.Deserialize(reader);
+                try
+                {
+                    _localFiles = (LocalFiles)serializer.Deserialize(reader);
+                    reader.Close();
+                }
+                catch (InvalidOperationException unused)
+                {
+                    MessageBox.Show("There was an error reading the cache file. Recreating it now.", "Error reading settings!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    reader.Close();
+
+                    // If the file was unreadable slurp the files from the specified locations.
+                    slurpFiles(serializer);
+                }
             }
             else
             {
                 // If the file doesn't exist slurp files from the specified locations.
-                _localFiles = new LocalFiles
-                {
-                    Locations = Settings.Default.Locations,
-                    ThreadsPerProcessor = Settings.Default.ThreadsPerProcessor,
-                    Extensions = Settings.Default.Extensions
-                };
-
-                _localFiles.Slurp();
-
-                TextWriter writer = new StreamWriter(Path.Combine(_path, "LocalFiles.xml"));
-
-                serializer.Serialize(writer, _localFiles);
-                writer.Close();
+                slurpFiles(serializer);
             }
 
             stopwatch.Stop();
 
             Trace.WriteLine(string.Format("Total time: {0}", stopwatch.Elapsed));
             Trace.WriteLine(string.Format("Total songs added: {0}", _localFiles.Songs.Count));
+        }
+
+        private void slurpFiles(XmlSerializer serializer)
+        {
+            _localFiles = new LocalFiles
+            {
+                Locations = Settings.Default.Locations,
+                ThreadsPerProcessor = Settings.Default.ThreadsPerProcessor,
+                Extensions = Settings.Default.Extensions
+            };
+
+            _localFiles.Slurp();
+
+            TextWriter writer = new StreamWriter(Path.Combine(_path, "LocalFiles.xml"));
+
+            serializer.Serialize(writer, _localFiles);
+            writer.Close();
         }
 
         /// <summary>

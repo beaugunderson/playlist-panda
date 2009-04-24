@@ -78,7 +78,7 @@ namespace PlaylistPanda.Slurp
                 album = string.Format("{0} - ", Album);
             }
 
-            return artist + album + Title;
+            return artist + album + (Title == null ? "<Unknown>" : Title);
         }
 
         public int CompareTo(Song other)
